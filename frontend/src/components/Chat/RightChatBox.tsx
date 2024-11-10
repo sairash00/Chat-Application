@@ -123,7 +123,7 @@ const RightChatBox = () => {
       
       <div className= { id && width < 640 ? " w-full flex flex-col h-full" : "max-sm:hidden sm:w-2/3 max-lg:w-full flex flex-col h-full" }>
         {!id ? (
-          <div className="flex justify-center items-center h-full text-gray-500 font-semibold">
+          <div className="flex justify-center w-full text-center px-3 items-center h-full text-gray-500 font-semibold">
             <p className="bebas text-3xl text-[#212121] tracking-wide " >Start gossiping with friends by clicking on the chats.</p>
           </div>
         ) : (

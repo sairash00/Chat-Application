@@ -42,7 +42,7 @@ export const register = async(req,res) => {
         const token = generateToken(email.toLowerCase(), user._id)
         const options = {
             httpOnly: true,
-            expiresin: Date.now() + 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+            expires:  new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours in milliseconds
             secure: true,
             sameSite: "None"
         }
@@ -101,7 +101,7 @@ export const login = async(req,res) => {
 
         const options = {
             httpOnly: true,
-            expiresin: Date.now() + 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+            expires:  new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours in milliseconds
             secure: true,
             sameSite: "None"
         }
