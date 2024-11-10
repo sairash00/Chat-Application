@@ -17,7 +17,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   useEffect(() => {
     const createSocketConnection = async () => {
       try {
-        const newSocket = io('http://localhost:3000');
+        const newSocket = io(import.meta.env.VITE_BACKEND_URL);
         setSocket(newSocket);
 
         newSocket.on('connection', () => {
