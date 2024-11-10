@@ -21,11 +21,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
         setSocket(newSocket);
 
         newSocket.on('connection', () => {
-          // console.log('Connected to Socket.IO server');
+          console.log('Connected to Socket.IO server');
         });
 
         return () => {
-          // console.log('Disconnected from Socket.IO server');
+          console.log('Disconnected from Socket.IO server');
           newSocket.disconnect();
         }; // Cleanup function for proper disconnection on unmount
       } catch (error) {
