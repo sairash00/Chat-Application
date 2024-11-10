@@ -18,7 +18,6 @@ const io = new Server(server,{
         credentials: true,
     },
 })
-
 socketHandleer(io)
 
 // start the server
