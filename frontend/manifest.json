@@ -2,7 +2,7 @@
     "name": "",
     "short_name": "Gossip",
     "description": "Chat application where you just chat",
-    "start_url": "/login",
+    "start_url": "/chat",
     "display": "standalone",
     "background_color": "#fff",
     "theme_color": "#fff",
