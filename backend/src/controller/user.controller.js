@@ -43,8 +43,8 @@ export const register = async(req,res) => {
         const options = {
             httpOnly: true,
             expiresin: Date.now() + 24 * 60 * 60 * 1000, // 24 hours in milliseconds
-            // secure: true,
-            // sameSite: "None"
+            secure: true,
+            sameSite: "None"
         }
 
         res.status(200)
@@ -102,8 +102,8 @@ export const login = async(req,res) => {
         const options = {
             httpOnly: true,
             expiresin: Date.now() + 24 * 60 * 60 * 1000, // 24 hours in milliseconds
-            // secure: true,
-            // sameSite: "None"
+            secure: true,
+            sameSite: "None"
         }
 
         res.status(200)
