@@ -1,7 +1,6 @@
 import { createContext, useState, useContext, ReactNode} from 'react';
 import { ChatUser, ChatContextType} from '../Interfaces/interface.ts';
 
-
 // Create the chat context
 const ChatContext = createContext<ChatContextType | undefined>(undefined);
 
