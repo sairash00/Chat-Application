@@ -71,7 +71,7 @@ const MessageBox = ({
       onClick={isCurrentUser ? handleDeleteShow : undefined}
       className={`flex ${
         isCurrentUser
-          ? "justify-end mt-[0.3rem]"
+          ? "justify-end mt-[0.3rem] mr-2"
           : "justify-start mt-[0.5rem] items-end gap-1 sm:gap-2"
       }`}
     >
