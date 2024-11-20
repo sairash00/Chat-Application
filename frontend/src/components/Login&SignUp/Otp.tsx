@@ -79,7 +79,7 @@ const OTPInput: React.FC = () => {
           {[...Array(5)].map((_, index) => (
             <input
               key={index}
-              type="text"
+              type="number "
               maxLength={1}
               className=" w-10 sm:w-12 h-12 bg-transparent text-center text-xl border-b-2 border-blue-400 focus:outline-none focus:border-blue-600"
               onChange={(e) => handleInputChange(e, index)}

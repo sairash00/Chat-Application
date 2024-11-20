@@ -270,6 +270,46 @@ export const sendMessage = async (req, res) => {
     }
 } 
 
+export const deleteMessage = async (req, res) => {
+    try {
+        console.log(req.body)
+        const {messageId, chatId} = req.body
+        if(!messageId || !chatId) return res.status(400).json({
+            success: false,
+            message: "Some value is not provided"
+        })
+
+        const chat = await Chat.findByIdAndUpdate(
+            chatId,
+            { $pull: { messages: messageId} },
+            { new: true }
+          );
+
+        if(!chat) return res.status(404).json({
+            success: false,
+            message: "Chat not found"
+        })
+
+        const deletedMessage = await Message.findByIdAndDelete(messageId);
+
+        if(!deletedMessage) return res.status(404).json({
+            success: false,
+            message: "Message not found"
+        })
+
+        res.status(200).json({
+            success: true,
+            message: "Message deleted successfully"
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Couldn't delete message"
+        })
+    }
+}
+
 export const sendMessageSocket = async ({ content, chatId, senderId }) => { 
     try {
       if (!content || !chatId || !senderId) {
@@ -317,4 +357,42 @@ export const sendMessageSocket = async ({ content, chatId, senderId }) => {
       };
     }
 };
+
+export const deleteMessageSocket = async ({messageId, chatId}) => {
+    try {
+        if(!messageId || !chatId) return{
+            success: false,
+            message: "Some value is not provided"
+        }
+
+        const chat = await Chat.findByIdAndUpdate(
+            chatId,
+            { $pull: { messages: messageId} },
+            { new: true }
+          );
+
+        if(!chat) return{
+            success: false,
+            message: "Chat not found"
+        }
+
+        const deletedMessage = await Message.findByIdAndDelete(messageId);
+
+        if(!deletedMessage) return{
+            success: false,
+            message: "Message not found"
+        }
+
+        return {
+            success: true,
+            message: "Message deleted successfully"
+        }
+        
+    } catch (error) {
+        return{
+            success: false,
+            message: "Couldn't delete message"
+        }
+    }
+}
   

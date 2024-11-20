@@ -65,6 +65,7 @@ const ProfileCard = ({ handleShow, chatId, currentUser, otherUser }: Props) => {
     mutationFn: deleteChatFn,
     onSuccess: async (_) => {
       showToast("Chat Deleted", "success");
+      handleShow()
       chatId ? removeChat(chatId) : null;
       navigate("/chat");
     },

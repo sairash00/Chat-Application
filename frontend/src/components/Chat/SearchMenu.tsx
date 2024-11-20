@@ -61,13 +61,13 @@ const SearchMenu = () => {
 
   return (
     <>
-      <div className="h-[6vh] mb-2 w-full flex items-center px-6 justify-between bg-gray-700 ">
+      <div className="h-[6vh] mb-2 w-full flex items-center px-6 justify-between bg-transparen border-b border-black ">
         <input
           type="text"
           onChange={handleSearch}
           value={searchText}
-          className="w-full bg-transparent text-center text-gray-200 placeholder:text-gray-200 focus:outline-none py-2 text-md px-1"
-          placeholder={`Search User`}
+          className="w-full bg-transparent text-center text-gray-700 placeholder:text-gray-700 focus:outline-none py-2 text-md px-1"
+          placeholder={`Enter friend's username`}
         />
       </div>
       <div className="overflow-y-auto h-[69vh] w-full flex flex-col items-center scrollbar-thin scrollbar-track-transparent scrollbar-thumb-[#577fee75]">

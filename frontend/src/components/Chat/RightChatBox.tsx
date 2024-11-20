@@ -14,17 +14,23 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useSocket } from "../../contexts/SocketContext";
 import { useChats } from "../../contexts/ChatContext";
 import { IoArrowBack } from "react-icons/io5";
+import MessageBox from "./message";
 
 const RightChatBox = () => { 
   const socket = useSocket();
   const { setChatsRefetcher, chatsRefetcher } = useChats();
   const [otherUser, setOtherUser] = useState<User | undefined>();
   const navigate = useNavigate();
+  const [sending, setSending] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false);
   const stringUserData = localStorage.getItem('userData');
   const [userData, setUserData] = useState<LocalStorageData | null>(null);
   const [showCard, setShowCard] = useState<boolean>(false);
   const { id } = useParams();
+  const [typing, setTyping] = useState({
+    typing: false,
+    userId: ""
+  });
   const [messages, setMessages] = useState<Messages[]>([]);
   const [width, setWidth] = useState<number>(window.innerWidth)
   const [messageData, setMessageData] = useState<MessageData>({
@@ -51,6 +57,7 @@ const RightChatBox = () => {
 
   const handleMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMessageData({ ...messageData, content: e.target.value });
+    socket?.emit("typing", {id, senderId: userData?._id})
   };
 
   const handleShowCard = () => {
@@ -90,9 +97,27 @@ const RightChatBox = () => {
 
     socket?.on("receive_message", (newMessage: Messages) => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
+      setSending(false)
     });
+
+    socket?.on("isTyping",(id) => {
+      setTyping({
+        typing: true,
+        userId: id,
+      })
+
+    })
+
+    socket?.on("stopTyping",() => {
+      setTyping({
+        typing: false,
+        userId: "",
+      })
+    })
+
     return () => {
       socket?.off("receive_message");
+      socket?.off("isTyping")
     };
   }, [socket, id]);
 
@@ -106,6 +131,7 @@ const RightChatBox = () => {
     if (!messageData.chatId || !messageData.content || !messageData.senderId) return showToast("Write something.", "error");
     if (messageData.content.length > 100) return showToast("Message too long.", "error");
     socket?.emit("send_message", messageData);
+    setSending(true)
     setMessageData({ ...messageData, content: "" });
     setLoading(false);
   };
@@ -116,6 +142,7 @@ const RightChatBox = () => {
     }
   }, [isError, error]);
 
+  
 
   return (
     <>
@@ -140,7 +167,7 @@ const RightChatBox = () => {
                 {isLoading ? (
                   <Skeleton height={25} width={100} highlightColor="#577fee70" baseColor="#577fee70" />
                 ) : (
-                  <span className="text-lg font-semibold">{otherUser?.username}</span>
+                  <span className="text-lg font-semibold">{typing.typing && typing.userId !== userData?._id ? "typing..." : otherUser?.username}</span>
                 )}
               </div>
               <BsThreeDotsVertical onClick={handleShowCard} className="mr-4" size={20} />
@@ -162,14 +189,12 @@ const RightChatBox = () => {
                 </div>
               ) : (
                 messages.map((message, index) => (
-                  <div key={index} className={`flex ${message.sender._id === userData?._id ? 'justify-end mt-[0.3rem] ' : 'justify-start mt-[0.5rem] items-end gap-1 sm:gap-2'}`}>
-                    {message.sender._id !== userData?._id && (
-                      <img src={message.sender.profileImage} className="w-4 h-4 rounded-full" />
-                    )}
-                    <div className={`font-semibold leading-tight py-[0.3rem] text-[0.75rem] sm:text-sm 900:text-md px-2 rounded-xl max-w-sm ${message.sender._id === userData?._id ? 'bg-white text-black rounded-br-none' : 'bg-blue-600 text-white rounded-bl-none'}`}>
-                      {message.content}
-                    </div>
-                  </div>
+                  <MessageBox
+                  key={index}
+                  message={message}
+                  userId={userData?._id}
+                  chatId = {id}
+                  />
                 ))
               )}
             </ScrollableFeed>
@@ -183,9 +208,9 @@ const RightChatBox = () => {
                 className="flex-1 px-2 text-lg bg-transparent border-b border-[#577fee] text-black font-semibold tracking-wide focus:outline-none"
                 placeholder="Say something..."
               />
-              <button type="submit" disabled={loading || messageData.content?.length === 0}>
+              {sending ? <PulseLoader size={4}  /> :<button type="submit" disabled={loading || messageData.content?.length === 0}>
                 <FaPaperPlane className="text-2xl text-blue-700 hover:text-[#577fee] transition cursor-pointer" />
-              </button>
+              </button>}
             </form>
           </>
         )}
