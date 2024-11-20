@@ -14,7 +14,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useSocket } from "../../contexts/SocketContext";
 import { useChats } from "../../contexts/ChatContext";
 import { IoArrowBack } from "react-icons/io5";
-import MessageBox from "./message";
+import MessageBox from "./Message.tsx";
 
 const RightChatBox = () => { 
   const socket = useSocket();
