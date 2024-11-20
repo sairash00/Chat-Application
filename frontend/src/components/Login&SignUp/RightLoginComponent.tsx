@@ -64,7 +64,7 @@ const RightComponent = () => {
       }
 
   return (
-    <div className="flex flex-col shadow-inner  justify-center items-center w-full md:w-1/2 p-8 backdrop-blur-md rounded-none md:rounded-bl-none md:rounded-tr-3xl">
+    <div className="flex flex-col   justify-center items-center w-full md:w-1/2 p-8 backdrop-blur-md rounded-none md:rounded-bl-none md:rounded-tr-3xl">
         <h2 className="text-3xl font-semibold mb-6 text-[#212121]  ">Login</h2>
         <form onSubmit={handleSubmit} className="w-full max-w-sm">
           <div className="mb-4">
