@@ -62,7 +62,7 @@ Welcome to the **Chat Application**, a modern real-time chat platform built usin
 
 ## Live Link
 
-Access the live application here: [https://gossip-nine.vercel.app](https://gossip-nine.vercel.app)
+Access the live application here: [https://gossip-nine.vercel.app](https://gossip-nine.vercel.app/login)
 
 ---
 
