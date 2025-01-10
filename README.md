@@ -85,8 +85,8 @@ Contributions are welcome! Please fork this repository and submit a pull request
 
 For any questions or feedback, please reach out to:
 
-- **Email**: [your.email@example.com](mailto\:your.email@example.com)
-- **GitHub**: [Your GitHub Profile](https://github.com/your-profile)
+- **Email**: [sairash7248@gmail.com](mailto\:sairash7248@gmail.com)
+
 
 ---
 
