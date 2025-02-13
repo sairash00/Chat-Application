@@ -78,12 +78,12 @@ const MessageBox = ({
       {!isCurrentUser && (
         <img
           src={message.sender.profileImage}
-          className="w-4 h-4 rounded-full"
+          className="w-3 h-3  rounded-full"
           alt="Sender's profile"
         />
       )}
       <div
-        className={deleted ? "hidden" : `font-semibold max-w-[60%] leading-tight py-[0.3rem] text-[0.75rem] max-450:text-sm max-sm:text-[1rem] sm:text-md  900:text-[1.5rem] px-2 rounded-xl ${
+        className={deleted ? "hidden" : `font-semibold max-w-[60%] leading-tight py-[0.3rem] text-[0.75rem] max-450:text-sm max-sm:text-[1rem] sm:text-md  900:text-[1rem] px-2 rounded-xl ${
           isCurrentUser && showDelete
             ? "bg-red-600 text-white rounded-br-none"
             : isCurrentUser

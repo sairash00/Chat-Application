@@ -13,7 +13,7 @@ connectDB()
 const server = http.createServer(app)
 const io = new Server(server,{
     cors: {
-        origin: "https://gossip-nine.vercel.app",
+        origin: "http://gossip-nine.vercel.app",
         methods: ["GET", "POST"],
         credentials: true,
     },
