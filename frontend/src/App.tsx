@@ -16,7 +16,7 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation()
 
-  const { data, isLoading} = useQuery({
+  const { data, refetch, isLoading} = useQuery({
     queryKey: ["isLoggedIn"],
     queryFn: isLoggedIn,
     refetchOnMount: false,
@@ -24,38 +24,33 @@ const App = () => {
   })
 
   const checkLogin = () => {
-    const localData = localStorage.getItem("userData");
-
-    if (!localData && (location.pathname === "/login" || location.pathname === "/signup" || location.pathname === "/verification/otp")) {
-      return;
-    }
-  
-    if (!localData) {
-      navigate("/login");
-      return;
-    }
-
-    const parsedData: LocalStorageData = JSON.parse(localData);
-
-    if (!parsedData.loggedIn) {
-      navigate("/login");
-      return;
-    }
-
-    parsedData.loggedIn = new Date().toLocaleTimeString();
-    localStorage.setItem("userData", JSON.stringify(parsedData));
-
+   
     if (!data?.data.success) {
       localStorage.removeItem("userData");
       navigate("/login");
       return;
     }
 
+    const userData: LocalStorageData = {
+      _id: data?.data.user.id,
+      username: data?.data.user.username,
+      email: data?.data.user.email,
+      profileImage: data?.data.user.profileImage,
+      lastSeen: new Date().toLocaleTimeString(),
+      loggedIn: new Date().toLocaleTimeString()
+    }
+
+    localStorage.setItem("userData", JSON.stringify(userData))
+
     if (location.pathname === "/login" || location.pathname === "/signup") {
       navigate("/chat");
     }
   };
 
+  useEffect(() => {
+    console.log("refetching..")
+    refetch()
+  }, [])
   
   useEffect(() => {
     if (!isLoading) {

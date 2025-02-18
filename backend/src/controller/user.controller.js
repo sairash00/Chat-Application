@@ -369,10 +369,11 @@ export const updateUsername = async (req, res) => {
     }
 }
 
-export const isLoggedIn = async(req,res) => {
+export const isLoggedIn = async(req,res) => { 
     return res.status(200).json({
         success: true,
-        message:"User is logged in"
+        message:"User is logged in",
+        user: req.userData
     })
 }
 

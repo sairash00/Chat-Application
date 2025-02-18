@@ -22,6 +22,13 @@ export const authenticate = async (req, res, next) => {
         })
 
         req.user = user._id
+        req.userData = {
+            id: user._id,
+            name: user.username,
+            email: user.email,
+            profileImage: user.profileImage,
+            lastSeen: user.lastSeen
+        }
         next()
     
     } catch (error) {
@@ -30,4 +37,4 @@ export const authenticate = async (req, res, next) => {
             message: error.message
         })
     }
-}
+} 

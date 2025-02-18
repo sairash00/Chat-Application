@@ -136,4 +136,11 @@ export interface SearchedData {
 
 export interface IsLoggedInData {
   success: boolean
+  user:{
+    id: string,
+    username: string,
+    email: string,
+    profileImage: string,
+    lastSeen: string,
+  }
 }
